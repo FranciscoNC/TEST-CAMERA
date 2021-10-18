@@ -34,15 +34,15 @@
     function getVideoPermission() {
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({
-            facingMode: { exact: "user" },
-            video:  {
-                aspectRatio: (16/9),
-                width: {
-                    min: 720, // 1280,
-                    ideal: 1920,
-                    max:9999
-                }
-            }
+            facingMode: "user",
+            // video:  {
+            //     aspectRatio: (16/9),
+            //     width: {
+            //         min: 720, // 1280,
+            //         ideal: 1920,
+            //         max:9999
+            //     }
+            // }
         }).then(cameraFounded).catch(cameraError);
       }else {
           alert("ERROR 1")
@@ -56,15 +56,15 @@
 
       if (navigator.getUserMedia) {
           const constraints = {
-            facingMode: { exact: "user" },
-            video:  {
-                aspectRatio: (16/9),
-                width: {
-                    min: 720, //1280,
-                    ideal: 1920,
-                    max:9999
-                }
-            }
+            facingMode: "user",
+            // video:  {
+            //     aspectRatio: (16/9),
+            //     width: {
+            //         min: 720, //1280,
+            //         ideal: 1920,
+            //         max:9999
+            //     }
+            // }
         }
         navigator.getUserMedia(constraints,
             function(stream) {
