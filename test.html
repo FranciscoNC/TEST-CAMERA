@@ -8,6 +8,98 @@
 </head>
 <body>
   <h1>Hola</h1>
-    
+  <video id="video"></video>
+  <script>
+    const video = document.getElementById('video')
+    function openCamera() {
+      let error = false
+      try {
+          getVideoPermission()
+      }catch (e) {
+          alert(e)
+          error = true
+      }
+
+      alert("error")
+
+      if (error){
+        try {
+          getVideoPermissionOld()
+        }catch (e) {
+          alert(e)
+        }
+      }
+    }
+
+    function getVideoPermission() {
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({
+            facingMode: { exact: "user" },
+            video:  {
+                aspectRatio: (16/9),
+                width: {
+                    min: 720, // 1280,
+                    ideal: 1920,
+                    max:9999
+                }
+            }
+        }).then(cameraFounded).catch(cameraError);
+      }else {
+          alert("ERROR 1")
+      }
+    }
+
+  function getVideoPermissionOld() {
+      navigator.getUserMedia = navigator.getUserMedia ||
+                              navigator.webkitGetUserMedia ||
+                              navigator.mozGetUserMedia;
+
+      if (navigator.getUserMedia) {
+          const constraints = {
+            facingMode: { exact: "user" },
+            video:  {
+                aspectRatio: (16/9),
+                width: {
+                    min: 720, //1280,
+                    ideal: 1920,
+                    max:9999
+                }
+            }
+        }
+        navigator.getUserMedia(constraints,
+            function(stream) {
+                  videoW = stream.getVideoTracks()[0].getSettings().width;
+                  videoH = stream.getVideoTracks()[0].getSettings().height;
+                  video.srcObject = stream;
+                  video.onloadedmetadata = (e) => {
+                      size = { width: videoW, height: videoH };
+                  }
+            },
+            function(err) {
+              alert(err)
+            }
+        );
+      } else {
+        alert("ERROR 2")
+      }
+  }
+
+  function cameraFounded(stream) {
+      videoW = stream.getVideoTracks()[0].getSettings().width;
+      videoH = stream.getVideoTracks()[0].getSettings().height;
+      video.srcObject = stream;
+      video.onloadedmetadata = (e) => {
+          size = { width: videoW, height: videoH };
+      }
+  }
+
+  function cameraError(e) {
+    alert("ERROR EN LA CAMARA")
+  }
+
+  openCamera()
+
+  </script>
 </body>
+
 </html>
