@@ -7,10 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-  <h1>Hola</h1>
   <video id="video" style="width: 100px; height: 100px;"></video>
   <script>
     const video = document.getElementById('video')
+    let videoW = 0
+    let videoH = 0
+    let size
     function openCamera() {
       let error = false
       try {
@@ -87,8 +89,10 @@
       videoH = stream.getVideoTracks()[0].getSettings().height;
       video.srcObject = stream;
       video.onloadedmetadata = (e) => {
+          console.log("camera opened")
           size = { width: videoW, height: videoH };
       }
+
   }
 
   function cameraError(e) {
