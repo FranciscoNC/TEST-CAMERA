@@ -64,6 +64,7 @@
         navigator.mediaDevices.getUserMedia({
             facingMode: { exact: "user" },
             video:  {
+              //aspectRatio: 16/9,
                 // aspectRatio: {
                 //   min: 4/3,
                 //   ideal: 16/9,
@@ -121,6 +122,7 @@
       videoW = stream.getVideoTracks()[0].getSettings().width;
       videoH = stream.getVideoTracks()[0].getSettings().height;
       video.srcObject = stream;
+      alert(stream.getVideoTracks()[0].getSettings().aspectRatio)
       video.onloadedmetadata = (e) => {
           console.log("camera opened")
           size = { width: videoW, height: videoH };
