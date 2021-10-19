@@ -12,13 +12,12 @@
   <script>
     navigator.mediaDevices.enumerateDevices().then(function (devices) {
            for(var i = 0; i < devices.length; i ++){
-               var device = devices[i];
-               if (device.kind === 'videoinput') {
-                   var option = document.createElement('option');
-                   option.value = device.deviceId;
-                   option.text = device.label || 'camera ' + (i + 1);
-                   document.querySelector('select#videoSource').appendChild(option);
-               }
+              var device = devices[i];
+              var option = document.createElement('option');
+              option.value = device.deviceId;
+              option.text = device.label + ' camera ' + (i + 1) + ' ' + device.kind; 
+              console.log(device.toJSON())
+              document.querySelector('select#videoSource').appendChild(option);
            };
        });
   </script>
@@ -50,15 +49,14 @@
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({
             facingMode: { exact: "user" },
-            video: true
-            // video:  {
-            //     aspectRatio: (16/9),
-            //     width: {
-            //         min: 720, // 1280,
-            //         ideal: 1920,
-            //         max:9999
-            //     }
-            // }
+            video:  {
+                // aspectRatio: (16/9),
+                width: {
+                    min: 720, // 1280,
+                    ideal: 1920,
+                    max:9999
+                }
+            }
         }).then(cameraFounded).catch(cameraError);
       }else {
           alert("ERROR 1")
