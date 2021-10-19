@@ -9,7 +9,21 @@
 <body>
   <video id="video" autoplay muted playsinline loop style="width: 200px;"></video>
   <select id="videoSource"></select>
+  <ul id="constraintList"></ul>
+
   <script>
+    let constraintList = document.getElementById("constraintList");
+    let supportedConstraints = navigator.mediaDevices.getSupportedConstraints();
+
+    for (let constraint in supportedConstraints) {
+      if (supportedConstraints.hasOwnProperty(constraint)) {
+        let elem = document.createElement("li");
+
+        elem.innerHTML = "<code>" + constraint + "</code>";
+        constraintList.appendChild(elem);
+      }
+    }
+
     navigator.mediaDevices.enumerateDevices().then(function (devices) {
            for(var i = 0; i < devices.length; i ++){
               var device = devices[i];
