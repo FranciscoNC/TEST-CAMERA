@@ -8,6 +8,21 @@
 </head>
 <body>
   <video id="video" autoplay muted playsinline loop style="width: 200px;"></video>
+  <select id="videoSource"></select>
+  <script>
+    navigator.mediaDevices.enumerateDevices().then(function (devices) {
+           for(var i = 0; i < devices.length; i ++){
+               var device = devices[i];
+               if (device.kind === 'videoinput') {
+                   var option = document.createElement('option');
+                   option.value = device.deviceId;
+                   option.text = device.label || 'camera ' + (i + 1);
+                   document.querySelector('select#videoSource').appendChild(option);
+               }
+           };
+       });
+  </script>
+
   <script>
     const video = document.getElementById('video')
     let videoW = 0
