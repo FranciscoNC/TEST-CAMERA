@@ -50,12 +50,14 @@
         navigator.mediaDevices.getUserMedia({
             facingMode: { exact: "user" },
             video:  {
-                aspectRatio: (16/9),
-                // width: {
-                //     min: 720, // 1280,
-                //     ideal: 1920,
-                //     max:9999
-                // }
+                aspectRatio: {
+                  ideal: 16/9
+                },
+                width: {
+                    min: 720, // 1280,
+                    ideal: 1920,
+                    max:9999
+                }
             }
         }).then(cameraFounded).catch(cameraError);
       }else {
